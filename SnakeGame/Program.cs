@@ -7,6 +7,7 @@ namespace SnakeGame
         static void Main(string[] args)
         {
             Map.CreateMap();
+            Console.WriteLine("");
         }
     }
     class Map
@@ -24,10 +25,17 @@ namespace SnakeGame
                 Console.SetCursorPosition(i + 10, 23);
                 Console.Write("#");
             }
+
             //Print vertical
             for (int i = 0; i < 23; i++)
             {
-                Console.WriteLine("#");
+                Console.SetCursorPosition(10, i);
+                Console.Write("#");
+            }
+            for (int i = 0; i < 23; i++)
+            {
+                Console.SetCursorPosition(108, i);
+                Console.Write("#");
             }
         }
     }
