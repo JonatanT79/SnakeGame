@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Xml.Schema;
 
 namespace SnakeGame
@@ -56,10 +57,9 @@ namespace SnakeGame
     {
         public static void MoveSnake(int x, int y)
         {
-            ConsoleKeyInfo keyInfo;
-            //Lägg till remove '@'
+            ConsoleKeyInfo keyInfo = Console.ReadKey();
 
-            while ((keyInfo = Console.ReadKey(true)).Key != ConsoleKey.Escape)
+            while (true)
             {
                 if (keyInfo.Key == ConsoleKey.UpArrow || keyInfo.Key == ConsoleKey.W)
                 {
@@ -68,6 +68,7 @@ namespace SnakeGame
                     y--;
                     Console.SetCursorPosition(x, y);
                     Console.WriteLine("@");
+                    Thread.Sleep(300);
                 }
                 else if (keyInfo.Key == ConsoleKey.RightArrow || keyInfo.Key == ConsoleKey.D)
                 {
@@ -76,6 +77,7 @@ namespace SnakeGame
                     x++;
                     Console.SetCursorPosition(x, y);
                     Console.WriteLine("@");
+                    Thread.Sleep(300);
                 }
                 else if (keyInfo.Key == ConsoleKey.DownArrow || keyInfo.Key == ConsoleKey.S)
                 {
@@ -84,6 +86,7 @@ namespace SnakeGame
                     y++;
                     Console.SetCursorPosition(x, y);
                     Console.WriteLine("@");
+                    Thread.Sleep(300);
                 }
                 else if (keyInfo.Key == ConsoleKey.LeftArrow || keyInfo.Key == ConsoleKey.A)
                 {
@@ -92,7 +95,10 @@ namespace SnakeGame
                     x--;
                     Console.SetCursorPosition(x, y);
                     Console.WriteLine("@");
+                    Thread.Sleep(300);
                 }
+
+                //Event
             }
         }
     }
