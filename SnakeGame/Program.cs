@@ -8,6 +8,10 @@ namespace SnakeGame
     {
         static void Main(string[] args)
         {
+            //Remove this when movement is fixed
+            //Console.WriteLine("Press any key to begin");
+            //Console.ReadKey();
+            //Console.Clear();
             Map.CreateMap();
             Player.PlayerStartPosition();
             Movement.MoveSnake(54, 12);
@@ -57,48 +61,51 @@ namespace SnakeGame
     {
         public static void MoveSnake(int x, int y)
         {
-            ConsoleKeyInfo keyInfo = Console.ReadKey();
+            //TODO: fix so user can choose which direction to begin moving
+            ConsoleKey keyInfo = ConsoleKey.LeftArrow;
 
             while (true)
             {
-                if (keyInfo.Key == ConsoleKey.UpArrow || keyInfo.Key == ConsoleKey.W)
+                if (keyInfo == ConsoleKey.UpArrow || keyInfo == ConsoleKey.W)
                 {
                     Console.SetCursorPosition(x, y);
                     Console.WriteLine(" ");
                     y--;
                     Console.SetCursorPosition(x, y);
                     Console.WriteLine("@");
-                    Thread.Sleep(300);
                 }
-                else if (keyInfo.Key == ConsoleKey.RightArrow || keyInfo.Key == ConsoleKey.D)
+                else if (keyInfo == ConsoleKey.RightArrow || keyInfo == ConsoleKey.D)
                 {
                     Console.SetCursorPosition(x, y);
                     Console.WriteLine(" ");
                     x++;
                     Console.SetCursorPosition(x, y);
                     Console.WriteLine("@");
-                    Thread.Sleep(300);
                 }
-                else if (keyInfo.Key == ConsoleKey.DownArrow || keyInfo.Key == ConsoleKey.S)
+                else if (keyInfo == ConsoleKey.DownArrow || keyInfo == ConsoleKey.S)
                 {
                     Console.SetCursorPosition(x, y);
                     Console.WriteLine(" ");
                     y++;
                     Console.SetCursorPosition(x, y);
                     Console.WriteLine("@");
-                    Thread.Sleep(300);
                 }
-                else if (keyInfo.Key == ConsoleKey.LeftArrow || keyInfo.Key == ConsoleKey.A)
+                else if (keyInfo == ConsoleKey.LeftArrow || keyInfo == ConsoleKey.A)
                 {
                     Console.SetCursorPosition(x, y);
                     Console.WriteLine(" ");
                     x--;
                     Console.SetCursorPosition(x, y);
                     Console.WriteLine("@");
-                    Thread.Sleep(300);
                 }
 
-                //Event
+                DateTime beginWait = DateTime.Now;
+                while (!Console.KeyAvailable && DateTime.Now.Subtract(beginWait).TotalSeconds < 0.2) { }
+
+                if (Console.KeyAvailable)
+                {
+                    keyInfo = Console.ReadKey().Key;
+                }
             }
         }
     }
