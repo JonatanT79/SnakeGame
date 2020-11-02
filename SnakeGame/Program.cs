@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using System.Xml.Schema;
 
@@ -12,9 +14,10 @@ namespace SnakeGame
             //Console.WriteLine("Press any key to begin");
             //Console.ReadKey();
             //Console.Clear();
+            Movement movement = new Movement();
             Map.CreateMap();
             Player.PlayerStartPosition();
-            Movement.MoveSnake(54, 12);
+            movement.MoveSnake(54, 12);
             //Exit Text
             Console.SetCursorPosition(0, 25);
         }
@@ -59,7 +62,7 @@ namespace SnakeGame
     }
     class Movement
     {
-        public static void MoveSnake(int x, int y)
+        public void MoveSnake(int x, int y)
         {
             //TODO: fix so user can choose which direction to begin moving
             ConsoleKey keyInfo = ConsoleKey.LeftArrow;
@@ -102,10 +105,36 @@ namespace SnakeGame
                 DateTime beginWait = DateTime.Now;
                 while (!Console.KeyAvailable && DateTime.Now.Subtract(beginWait).TotalSeconds < 0.2) { }
 
+                //TODO: Remove "boost" when holding a key
                 if (Console.KeyAvailable)
                 {
-                    keyInfo = Console.ReadKey().Key;
+                    ConsoleKey key = Console.ReadKey().Key;
+                    if (IsValidKey(key))
+                    {
+                        keyInfo = key;
+                    }
                 }
+            }
+        }
+        public bool IsValidKey(ConsoleKey key)
+        {
+            if
+            (
+                key != ConsoleKey.RightArrow &&
+                key != ConsoleKey.UpArrow &&
+                key != ConsoleKey.LeftArrow &&
+                key != ConsoleKey.DownArrow &&
+                key != ConsoleKey.D &&
+                key != ConsoleKey.W &&
+                key != ConsoleKey.A &&
+                key != ConsoleKey.S
+            )
+            {
+                return false;
+            }
+            else
+            {
+                return true;
             }
         }
     }
