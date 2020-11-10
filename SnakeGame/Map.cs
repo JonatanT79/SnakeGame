@@ -7,6 +7,7 @@ namespace SnakeGame
         public static void CreateMap()
         {
             //print horizontel
+            Console.ForegroundColor = ConsoleColor.Red;
             for (int i = 0; i < 99; i++)
             {
                 Console.SetCursorPosition(i + 10, 0);
@@ -30,6 +31,7 @@ namespace SnakeGame
                 Console.SetCursorPosition(108, i);
                 Console.Write("#");
             }
+            Console.ResetColor();
         }
     }
 }

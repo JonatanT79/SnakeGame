@@ -6,12 +6,17 @@ namespace SnakeGame
     {
         public void MoveSnake(int x, int y)
         {
+            Fruit fruit = new Fruit();
             GameOver gameOver = new GameOver();
             //TODO: fix so user can choose which direction to begin moving
+            int score = 0;
             ConsoleKey keyInfo = ConsoleKey.UpArrow;
+
+            fruit.SpawnFruit();
 
             while (true)
             {
+                Console.ForegroundColor = ConsoleColor.Green;
                 if (keyInfo == ConsoleKey.UpArrow || keyInfo == ConsoleKey.W)
                 {
                     Console.SetCursorPosition(x, y);
@@ -47,18 +52,42 @@ namespace SnakeGame
                 DateTime beginWait = DateTime.Now;
                 while (!Console.KeyAvailable && DateTime.Now.Subtract(beginWait).TotalSeconds < 0.2) { }
 
+                Console.ResetColor();
                 if (Console.KeyAvailable)
                 {
                     ConsoleKey key = Console.ReadKey().Key;
-                    Console.SetCursorPosition(0, y + 1);
-                    Console.WriteLine(" ");
+                    RemovePrintedKey(y);
+
                     if (IsValidKey(key))
                     {
                         keyInfo = key;
                     }
                 }
                 gameOver.WallHit(x, y);
+
+                if (FruitIsEaten(x, y))
+                {
+                    Console.SetCursorPosition(55, 24);
+                    Console.WriteLine("Score: " + ++score);
+                    fruit.SpawnFruit();
+                }
             }
+        }
+        public bool FruitIsEaten(int x, int y)
+        {
+            if (x == Fruit.FruitXCoord && y == Fruit.FruitYCoord)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public void RemovePrintedKey(int y)
+        {
+            Console.SetCursorPosition(0, y + 1);
+            Console.WriteLine(" ");
         }
         public bool IsValidKey(ConsoleKey key)
         {

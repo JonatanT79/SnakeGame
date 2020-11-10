@@ -20,7 +20,7 @@ namespace SnakeGame
         }
         private void DisplayGameOver()
         {
-            Console.SetCursorPosition(0, 24);
+            Console.SetCursorPosition(0, 25);
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("Game Over");
             Console.ResetColor();
@@ -28,7 +28,3 @@ namespace SnakeGame
         }
     }
 }
-
-//Spawn Apples at random places
-//Extend Snake when apple is eaten
-//TODO: Remove "boost" when holding a key
