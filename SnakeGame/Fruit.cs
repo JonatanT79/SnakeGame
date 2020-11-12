@@ -10,7 +10,7 @@ namespace SnakeGame
         {
             Random rnd = new Random();
             FruitXCoord = rnd.Next(11, 108);
-            FruitYCoord = rnd.Next(1, 22);
+            FruitYCoord = rnd.Next(1, 23);
             Console.SetCursorPosition(FruitXCoord, FruitYCoord);
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("O");

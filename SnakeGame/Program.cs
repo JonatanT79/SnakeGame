@@ -11,17 +11,16 @@ namespace SnakeGame
         static void Main(string[] args)
         {
             Movement movement = new Movement();
+            Snake snake = new Snake();
             Map.CreateMap();
-            Player.PlayerStartPosition();
+            snake.SnakeStartPosition();
             movement.MoveSnake(54, 12);
-
-            //Exit Text
-            Console.SetCursorPosition(0, 25);
         }
     }
 }
 
-//Extend Snake when fruit is eaten
-//TODO: Remove "boost" when holding a key
-//When game is done add: highscore (test without db, then do it with db)
+//Fix extend snake bugg
 //Standard Conventions (variable name, access modifiers)
+//fix so user can choose which direction to begin moving
+//Remove "boost" when holding a key
+//When game is done add: highscore (test without db, then do it with db)
