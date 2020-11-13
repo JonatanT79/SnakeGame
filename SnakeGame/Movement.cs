@@ -9,7 +9,7 @@ namespace SnakeGame
             Snake snake = new Snake();
             Fruit fruit = new Fruit();
             GameOver gameOver = new GameOver();
-            int score = 0;
+            //int score = 0;
             ConsoleKey keyInfo = ConsoleKey.RightArrow;
 
             fruit.SpawnFruit();
@@ -20,26 +20,26 @@ namespace SnakeGame
                 if (keyInfo == ConsoleKey.UpArrow || keyInfo == ConsoleKey.W)
                 {
                     y--;
-                    snake.PrintWholeSnake(x, y, keyInfo);
+                    snake.PrintSnake(x, y, keyInfo);
                 }
                 else if (keyInfo == ConsoleKey.RightArrow || keyInfo == ConsoleKey.D)
                 {
                     x++;
-                    snake.PrintWholeSnake(x, y, keyInfo);
+                    snake.PrintSnake(x, y, keyInfo);
                 }
                 else if (keyInfo == ConsoleKey.DownArrow || keyInfo == ConsoleKey.S)
                 {
                     y++;
-                    snake.PrintWholeSnake(x, y, keyInfo);
+                    snake.PrintSnake(x, y, keyInfo);
                 }
                 else if (keyInfo == ConsoleKey.LeftArrow || keyInfo == ConsoleKey.A)
                 {
                     x--;
-                    snake.PrintWholeSnake(x, y, keyInfo);
+                    snake.PrintSnake(x, y, keyInfo);
                 }
 
                 DateTime beginWait = DateTime.Now;
-                while (!Console.KeyAvailable && DateTime.Now.Subtract(beginWait).TotalSeconds < 0.3) { }
+                while (!Console.KeyAvailable && DateTime.Now.Subtract(beginWait).TotalSeconds < 3) { }
 
                 Console.ResetColor();
                 if (Console.KeyAvailable)
