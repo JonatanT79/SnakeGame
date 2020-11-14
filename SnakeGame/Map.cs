@@ -4,33 +4,36 @@ namespace SnakeGame
 {
     class Map
     {
-        public static void CreateMap()
+        public void CreateMap()
         {
-            //print horizontel
+            const int MAP_LEFT_MAX = 10, MAP_RIGHT_MAX = 108, HORIZONT_LENGHT = 99, VERTICAL_LENGHT = 23;
             Console.ForegroundColor = ConsoleColor.Red;
-            for (int i = 0; i < 99; i++)
+
+            //print horizontel
+            for (int i = 0; i < HORIZONT_LENGHT; i++)
             {
-                Console.SetCursorPosition(i + 10, 0);
+                Console.SetCursorPosition(MAP_LEFT_MAX + i, 0);
                 Console.Write("#");
             }
-            for (int i = 0; i < 99; i++)
+            for (int i = 0; i < HORIZONT_LENGHT; i++)
             {
-                Console.SetCursorPosition(i + 10, 23);
+                Console.SetCursorPosition(MAP_LEFT_MAX + i, VERTICAL_LENGHT);
                 Console.Write("#");
             }
 
             //Print vertical
-            for (int i = 0; i < 23; i++)
+            for (int i = 0; i < VERTICAL_LENGHT; i++)
             {
-                Console.SetCursorPosition(10, i);
+                Console.SetCursorPosition(MAP_LEFT_MAX, i);
                 Console.Write("#");
             }
 
-            for (int i = 0; i < 24; i++)
+            for (int i = 0; i < VERTICAL_LENGHT; i++)
             {
-                Console.SetCursorPosition(108, i);
+                Console.SetCursorPosition(MAP_RIGHT_MAX, i);
                 Console.Write("#");
             }
+
             Console.ResetColor();
         }
     }

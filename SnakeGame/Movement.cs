@@ -9,10 +9,9 @@ namespace SnakeGame
             Snake snake = new Snake();
             Fruit fruit = new Fruit();
             GameOver gameOver = new GameOver();
-            //int score = 0;
             ConsoleKey keyInfo = ConsoleKey.RightArrow;
-
             fruit.SpawnFruit();
+            //int score = 0;
 
             while (true)
             {
@@ -38,49 +37,43 @@ namespace SnakeGame
                     snake.PrintSnake(x, y, keyInfo);
                 }
 
-                DateTime beginWait = DateTime.Now;
-                while (!Console.KeyAvailable && DateTime.Now.Subtract(beginWait).TotalSeconds < 3) { }
+                gameOver.CheckIfWallHit(x, y);
+                SnakeMayChangeDirection(ref keyInfo);
+                RemovePrintedKey(y);
+                FruitIsEaten(x, y, snake, fruit);
+            }
+        }
+        private void SnakeMayChangeDirection(ref ConsoleKey keyInfo)
+        {
+            DateTime beginWait = DateTime.Now;
 
-                Console.ResetColor();
-                if (Console.KeyAvailable)
+            while (!Console.KeyAvailable && DateTime.Now.Subtract(beginWait).TotalSeconds < 5)
+            {
+
+            }
+
+            if (Console.KeyAvailable)
+            {
+                ConsoleKey key = Console.ReadKey().Key;
+
+                if (IsValidKey(key))
                 {
-                    ConsoleKey key = Console.ReadKey().Key;
-                    RemovePrintedKey(y);
-
-                    if (IsValidKey(key))
-                    {
-                        keyInfo = key;
-                    }
-                }
-                gameOver.WallHit(x, y);
-
-                if (FruitIsEaten(x, y))
-                {
-                    snake.ExtendSnake();
-                    //Console.WriteLine($"Score: {++score}");
-                    Console.SetCursorPosition(55, 24);
-                    Console.WriteLine($"SnakeLenght: {snake.snakeLenght}");
-                    fruit.SpawnFruit();
+                    keyInfo = key;
                 }
             }
         }
-        public bool FruitIsEaten(int x, int y)
+        private void FruitIsEaten(int x, int y, Snake snake, Fruit fruit)
         {
             if (x == Fruit.FruitXCoord && y == Fruit.FruitYCoord)
             {
-                return true;
-            }
-            else
-            {
-                return false;
+                snake.ExtendSnake();
+                //Console.WriteLine($"Score: {++score}");
+                Console.SetCursorPosition(55, 24);
+                Console.WriteLine($"SnakeLenght: {snake.snakeLenght}");
+                fruit.SpawnFruit();
             }
         }
-        public void RemovePrintedKey(int y)
-        {
-            Console.SetCursorPosition(0, y + 1);
-            Console.WriteLine(" ");
-        }
-        public bool IsValidKey(ConsoleKey key)
+        private bool IsValidKey(ConsoleKey key)
         {
             if
             (
@@ -100,6 +93,11 @@ namespace SnakeGame
             {
                 return true;
             }
+        }
+        private void RemovePrintedKey(int y)
+        {
+            Console.SetCursorPosition(0, y + 1);
+            Console.WriteLine(" ");
         }
     }
 }

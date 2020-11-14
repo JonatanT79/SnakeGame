@@ -6,27 +6,23 @@ namespace SnakeGame
 {
     class Snake
     {
-        public int snakeLenght = 1;
-        public ConsoleKey PrevKey { get; set; }
-        public int PrevX { get; set; }
-        public int PrevY { get; set; }
         public int SnakeHeadX { get; set; }
         public int SnakeHeadY { get; set; }
-        public void SnakeStartPosition()
-        {
-            Console.SetCursorPosition(54, 12);
-            Console.WriteLine("@");
-        }
+        private int PrevX { get; set; }
+        private int PrevY { get; set; }
+        private ConsoleKey PrevKey { get; set; }
+
+        public int snakeLenght = 1;
 
         public void PrintSnake(int x, int y, ConsoleKey currentKey)
         {
-            const int SnakeMoved1Step = 1;
+            const int SNAKE_MOVED_1_STEP = 1;
 
             if (currentKey == ConsoleKey.UpArrow)
             {
                 CheckChangedDirectionBeforeRemovingSnake(x, y, currentKey);
                 PrevX = x;
-                PrevY = y - SnakeMoved1Step;
+                PrevY = y - SNAKE_MOVED_1_STEP;
 
                 for (int i = 0; i < snakeLenght; i++)
                 {
@@ -38,7 +34,7 @@ namespace SnakeGame
             else if (currentKey == ConsoleKey.RightArrow)
             {
                 CheckChangedDirectionBeforeRemovingSnake(x, y, currentKey);
-                PrevX = x + SnakeMoved1Step;
+                PrevX = x + SNAKE_MOVED_1_STEP;
                 PrevY = y;
 
                 for (int i = 0; i < snakeLenght; i++)
@@ -52,7 +48,7 @@ namespace SnakeGame
             {
                 CheckChangedDirectionBeforeRemovingSnake(x, y, currentKey);
                 PrevX = x;
-                PrevY = y + SnakeMoved1Step;
+                PrevY = y + SNAKE_MOVED_1_STEP;
 
                 for (int i = 0; i < snakeLenght; i++)
                 {
@@ -64,7 +60,7 @@ namespace SnakeGame
             else if (currentKey == ConsoleKey.LeftArrow)
             {
                 CheckChangedDirectionBeforeRemovingSnake(x, y, currentKey);
-                PrevX = x - SnakeMoved1Step;
+                PrevX = x - SNAKE_MOVED_1_STEP;
                 PrevY = y;
 
                 for (int i = 0; i < snakeLenght; i++)
@@ -77,7 +73,7 @@ namespace SnakeGame
 
             PrevKey = currentKey;
         }
-        public void CheckChangedDirectionBeforeRemovingSnake(int x, int y, ConsoleKey currentKey)
+        private void CheckChangedDirectionBeforeRemovingSnake(int x, int y, ConsoleKey currentKey)
         {
             if (SnakeChangedDirection(currentKey, PrevKey))
             {
@@ -88,7 +84,7 @@ namespace SnakeGame
                 RemoveSnake(x, y, currentKey);
             }
         }
-        public void RemoveSnake(int x, int y, ConsoleKey key)
+        private void RemoveSnake(int x, int y, ConsoleKey key)
         {
             if (key == ConsoleKey.UpArrow)
             {
@@ -123,7 +119,7 @@ namespace SnakeGame
                 }
             }
         }
-        public bool SnakeChangedDirection(ConsoleKey currentKey, ConsoleKey previousKey)
+        private bool SnakeChangedDirection(ConsoleKey currentKey, ConsoleKey previousKey)
         {
             if ((currentKey != previousKey) && (previousKey != 0))
             {
