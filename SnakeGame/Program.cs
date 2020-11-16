@@ -20,8 +20,7 @@ namespace SnakeGame
     }
 }
 
-//BuggFixar
-//if snakelenght is > 3 the moving animation is wrong 
+//BuggFixar / New Functions
 //Add Gameover if snake hits its own body
 //Fix bugg with wasd
 //Fix bugg 'removeprintedkey'

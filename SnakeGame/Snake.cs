@@ -8,131 +8,88 @@ namespace SnakeGame
     {
         public int SnakeHeadX { get; set; }
         public int SnakeHeadY { get; set; }
-        private int PrevX { get; set; }
-        private int PrevY { get; set; }
-        private ConsoleKey PrevKey { get; set; }
+        public int SnakeTailX { get; set; }
+        public int SnakeTailY { get; set; }
 
-        public int snakeLenght = 1;
+        public List<string> snakeBody = new List<string>();
+        public List<int> xRoutes = new List<int>();
+        public List<int> yRoutes = new List<int>();
 
         public void PrintSnake(int x, int y, ConsoleKey currentKey)
         {
-            const int SNAKE_MOVED_1_STEP = 1;
-
             if (currentKey == ConsoleKey.UpArrow)
             {
-                CheckChangedDirectionBeforeRemovingSnake(x, y, currentKey);
-                PrevX = x;
-                PrevY = y - SNAKE_MOVED_1_STEP;
+                RemoveSnakeTail();
 
-                for (int i = 0; i < snakeLenght; i++)
+                for (int i = 0; i < snakeBody.Count; i++)
                 {
-                    Console.SetCursorPosition(x, y);
-                    Console.WriteLine("@");
-                    y++;
+                    Console.SetCursorPosition(xRoutes[i], yRoutes[i]);
+                    Console.WriteLine(snakeBody[i]);
                 }
             }
             else if (currentKey == ConsoleKey.RightArrow)
             {
-                CheckChangedDirectionBeforeRemovingSnake(x, y, currentKey);
-                PrevX = x + SNAKE_MOVED_1_STEP;
-                PrevY = y;
+                RemoveSnakeTail();
 
-                for (int i = 0; i < snakeLenght; i++)
+                for (int i = 0; i < snakeBody.Count; i++)
                 {
-                    Console.SetCursorPosition(x, y);
-                    Console.WriteLine("@");
-                    x--;
+                    Console.SetCursorPosition(xRoutes[i], yRoutes[i]);
+                    Console.WriteLine(snakeBody[i]);
                 }
             }
             else if (currentKey == ConsoleKey.DownArrow)
             {
-                CheckChangedDirectionBeforeRemovingSnake(x, y, currentKey);
-                PrevX = x;
-                PrevY = y + SNAKE_MOVED_1_STEP;
+                RemoveSnakeTail();
 
-                for (int i = 0; i < snakeLenght; i++)
+                for (int i = 0; i < snakeBody.Count; i++)
                 {
-                    Console.SetCursorPosition(x, y);
-                    Console.WriteLine("@");
-                    y--;
+                    Console.SetCursorPosition(xRoutes[i], yRoutes[i]);
+                    Console.WriteLine(snakeBody[i]);
                 }
             }
             else if (currentKey == ConsoleKey.LeftArrow)
             {
-                CheckChangedDirectionBeforeRemovingSnake(x, y, currentKey);
-                PrevX = x - SNAKE_MOVED_1_STEP;
-                PrevY = y;
+                RemoveSnakeTail();
 
-                for (int i = 0; i < snakeLenght; i++)
+                for (int i = 0; i < snakeBody.Count; i++)
                 {
-                    Console.SetCursorPosition(x, y);
-                    Console.WriteLine("@");
-                    x++;
+                    Console.SetCursorPosition(xRoutes[i], yRoutes[i]);
+                    Console.WriteLine(snakeBody[i]);
                 }
             }
-
-            PrevKey = currentKey;
         }
-        private void CheckChangedDirectionBeforeRemovingSnake(int x, int y, ConsoleKey currentKey)
+        private void RemoveSnakeTail()
         {
-            if (SnakeChangedDirection(currentKey, PrevKey))
-            {
-                RemoveSnake(PrevX, PrevY, PrevKey);
-            }
-            else
-            {
-                RemoveSnake(x, y, currentKey);
-            }
+            Console.SetCursorPosition(SnakeTailX, SnakeTailY);
+            Console.WriteLine(" ");
         }
-        private void RemoveSnake(int x, int y, ConsoleKey key)
+        private void AddRouteForNewSnakeBodyIfExtended(int x, int y, ConsoleKey key)
         {
             if (key == ConsoleKey.UpArrow)
             {
-                for (int i = 1; i <= snakeLenght; i++)
-                {
-                    Console.SetCursorPosition(x, y + i);
-                    Console.WriteLine(" ");
-                }
+                xRoutes.Add(x);
+                yRoutes.Add(y + yRoutes.Count);
             }
             else if (key == ConsoleKey.RightArrow)
             {
-                for (int i = 1; i <= snakeLenght; i++)
-                {
-                    Console.SetCursorPosition(x - i, y);
-                    Console.WriteLine(" ");
-                }
+                xRoutes.Add(x - xRoutes.Count);
+                yRoutes.Add(y);
             }
             else if (key == ConsoleKey.DownArrow)
             {
-                for (int i = 1; i <= snakeLenght; i++)
-                {
-                    Console.SetCursorPosition(x, y - i);
-                    Console.WriteLine(" ");
-                }
+                xRoutes.Add(x);
+                yRoutes.Add(y - yRoutes.Count);
             }
             else if (key == ConsoleKey.LeftArrow)
             {
-                for (int i = 1; i <= snakeLenght; i++)
-                {
-                    Console.SetCursorPosition(x + i, y);
-                    Console.WriteLine(" ");
-                }
+                xRoutes.Add(x + xRoutes.Count);
+                yRoutes.Add(y);
             }
         }
-        private bool SnakeChangedDirection(ConsoleKey currentKey, ConsoleKey previousKey)
+        public void ExtendSnake(int x, int y, ConsoleKey key)
         {
-            if ((currentKey != previousKey) && (previousKey != 0))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        public void ExtendSnake()
-        {
-            snakeLenght++;
+            snakeBody.Add("o");
+            AddRouteForNewSnakeBodyIfExtended(x, y, key);
         }
     }
 }
