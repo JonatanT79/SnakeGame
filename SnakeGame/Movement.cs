@@ -9,54 +9,53 @@ namespace SnakeGame
             Snake snake = new Snake();
             Fruit fruit = new Fruit();
             GameOver gameOver = new GameOver();
+
             ConsoleKey keyInfo = ConsoleKey.RightArrow;
-            fruit.SpawnFruit();
-            snake.snakeBody.Add("¤");
+            snake.snakeParts.Add("¤");
             snake.xRoutes.Add(x);
             snake.yRoutes.Add(y);
-            //int score = 0;
+            fruit.SpawnFruit();
 
             while (true)
             {
-                Console.ForegroundColor = ConsoleColor.Green;
+                gameOver.CheckIfBodyHit(x, y, snake);
+                gameOver.CheckIfWallHit(x, y);
 
                 if (keyInfo == ConsoleKey.UpArrow || keyInfo == ConsoleKey.W)
                 {
                     y--;
                     UpdateSnakeRoute(x, y, snake);
-                    snake.PrintSnake(x, y, keyInfo);
+                    snake.PrintSnake();
                 }
                 else if (keyInfo == ConsoleKey.RightArrow || keyInfo == ConsoleKey.D)
                 {
                     x++;
                     UpdateSnakeRoute(x, y, snake);
-                    snake.PrintSnake(x, y, keyInfo);
+                    snake.PrintSnake();
                 }
                 else if (keyInfo == ConsoleKey.DownArrow || keyInfo == ConsoleKey.S)
                 {
                     y++;
                     UpdateSnakeRoute(x, y, snake);
-                    snake.PrintSnake(x, y, keyInfo);
+                    snake.PrintSnake();
                 }
                 else if (keyInfo == ConsoleKey.LeftArrow || keyInfo == ConsoleKey.A)
                 {
                     x--;
                     UpdateSnakeRoute(x, y, snake);
-                    snake.PrintSnake(x, y, keyInfo);
+                    snake.PrintSnake();
                 }
 
-                gameOver.CheckIfWallHit(x, y);
-                SnakeMayChangeDirection(ref keyInfo);
+                CheckIfSnakeChangesDirection(ref keyInfo);
                 RemovePrintedKey(y);
-                FruitIsEaten(x, y, keyInfo, snake, fruit);
+                CheckIfFruitIsEaten(x, y, keyInfo, snake, fruit);
             }
         }
         private void UpdateSnakeRoute(int x, int y, Snake snake)
         {
-            snake.SnakeTailX = snake.xRoutes[snake.snakeBody.Count - 1];
-            snake.SnakeTailY = snake.yRoutes[snake.snakeBody.Count - 1];
+            SetSnakeTailCoords(snake);
 
-            for (int i = snake.snakeBody.Count - 1; i >= 0; i--)
+            for (int i = snake.snakeParts.Count - 1; i >= 0; i--)
             {
                 if (i != 0)
                 {
@@ -70,11 +69,17 @@ namespace SnakeGame
                 }
             }
         }
-        private void SnakeMayChangeDirection(ref ConsoleKey keyInfo)
+        private void SetSnakeTailCoords(Snake snake)
+        {
+            snake.SnakeTailX = snake.xRoutes[snake.snakeParts.Count - 1];
+            snake.SnakeTailY = snake.yRoutes[snake.snakeParts.Count - 1];
+        }
+        private void CheckIfSnakeChangesDirection(ref ConsoleKey keyInfo)
         {
             DateTime beginWait = DateTime.Now;
+            double snakeSpeed = 0.1;
 
-            while (!Console.KeyAvailable && DateTime.Now.Subtract(beginWait).TotalSeconds < 0.05)
+            while (!Console.KeyAvailable && DateTime.Now.Subtract(beginWait).TotalSeconds < snakeSpeed)
             {
 
             }
@@ -89,15 +94,14 @@ namespace SnakeGame
                 }
             }
         }
-        private void FruitIsEaten(int x, int y, ConsoleKey key, Snake snake, Fruit fruit)
+        private void CheckIfFruitIsEaten(int x, int y, ConsoleKey key, Snake snake, Fruit fruit)
         {
             if (x == Fruit.FruitXCoord && y == Fruit.FruitYCoord)
             {
                 snake.ExtendSnake(x, y, key);
-                //Console.WriteLine($"Score: {++score}");
-                Console.SetCursorPosition(55, 24);
-                Console.WriteLine($"SnakeLenght: {snake.snakeBody.Count}");
                 fruit.SpawnFruit();
+                Console.SetCursorPosition(55, 24);
+                Console.WriteLine($"Score: {snake.snakeParts.Count}");
             }
         }
         private bool IsValidKey(ConsoleKey key)

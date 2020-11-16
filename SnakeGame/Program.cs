@@ -21,10 +21,13 @@ namespace SnakeGame
 }
 
 //BuggFixar / New Functions
-//Add Gameover if snake hits its own body
+//Fix that snake cant be moving in the opposite direction (ex if snake is moving right, it should not be able to move left)
+
+//Sometimes the snaketail will be negative number and wall is disapearing sometimes (happens when snake is near wall)
 //Fix bugg with wasd
 //Fix bugg 'removeprintedkey'
-//Add if: if snakehead = fruit x & y coord;
-//fix so user can choose which direction to begin moving
+//Fix so user can choose which direction to begin moving
 //Remove "boost" when holding a key
+//Fixa så att score egentligen ska vara i db
 //When game is done add: highscore (test without db, then do it with db)
+//Add restart function

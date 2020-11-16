@@ -19,12 +19,26 @@ namespace SnakeGame
                 DisplayGameOver();
             }
         }
+        public void CheckIfBodyHit(int x, int y, Snake snake)
+        {
+            for (int i = 1; i < snake.xRoutes.Count; i++)
+            {
+                if((x == snake.xRoutes[i] && y == snake.yRoutes[i]))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.SetCursorPosition(x, y);
+                    Console.WriteLine("¤");
+                    DisplayGameOver();
+                }
+            }
+        }
         private void DisplayGameOver()
         {
             Console.SetCursorPosition(0, 24);
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("Game Over");
             Console.ResetColor();
+            Console.ReadKey();
             Environment.Exit(0);
         }
     }
