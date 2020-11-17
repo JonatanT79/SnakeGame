@@ -21,13 +21,12 @@ namespace SnakeGame
 }
 
 //BuggFixar / New Functions
-//Fix that snake cant be moving in the opposite direction (ex if snake is moving right, it should not be able to move left)
-
-//Sometimes the snaketail will be negative number and wall is disapearing sometimes (happens when snake is near wall)
-//Fix bugg with wasd
 //Fix bugg 'removeprintedkey'
-//Fix so user can choose which direction to begin moving
+
+//Fix when currentKey = leftarrow: snake can still go back if user press 'D'
+//Sometimes the snaketail will be negative number and wall is disapearing sometimes (happens when snake is near wall)
 //Remove "boost" when holding a key
+//Fix so user can choose which direction to begin moving
 //Fixa så att score egentligen ska vara i db
 //When game is done add: highscore (test without db, then do it with db)
 //Add restart function

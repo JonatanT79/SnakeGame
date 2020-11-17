@@ -33,22 +33,22 @@ namespace SnakeGame
         }
         private void AddRouteForNewSnakeBody(int x, int y, ConsoleKey key)
         {
-            if (key == ConsoleKey.UpArrow)
+            if (key == ConsoleKey.UpArrow || key == ConsoleKey.W)
             {
                 xRoutes.Add(x);
                 yRoutes.Add(y + yRoutes.Count);
             }
-            else if (key == ConsoleKey.RightArrow)
+            else if (key == ConsoleKey.RightArrow || key == ConsoleKey.D)
             {
                 xRoutes.Add(x - xRoutes.Count);
                 yRoutes.Add(y);
             }
-            else if (key == ConsoleKey.DownArrow)
+            else if (key == ConsoleKey.DownArrow || key == ConsoleKey.S)
             {
                 xRoutes.Add(x);
                 yRoutes.Add(y - yRoutes.Count);
             }
-            else if (key == ConsoleKey.LeftArrow)
+            else if (key == ConsoleKey.LeftArrow || key == ConsoleKey.A)
             {
                 xRoutes.Add(x + xRoutes.Count);
                 yRoutes.Add(y);

@@ -23,7 +23,7 @@ namespace SnakeGame
         {
             for (int i = 1; i < snake.xRoutes.Count; i++)
             {
-                if((x == snake.xRoutes[i] && y == snake.yRoutes[i]))
+                if (x == snake.xRoutes[i] && y == snake.yRoutes[i])
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.SetCursorPosition(x, y);

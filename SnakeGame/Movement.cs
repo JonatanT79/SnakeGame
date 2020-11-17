@@ -10,7 +10,7 @@ namespace SnakeGame
             Fruit fruit = new Fruit();
             GameOver gameOver = new GameOver();
 
-            ConsoleKey keyInfo = ConsoleKey.RightArrow;
+            ConsoleKey currentKey = ConsoleKey.RightArrow;
             snake.snakeParts.Add("¤");
             snake.xRoutes.Add(x);
             snake.yRoutes.Add(y);
@@ -21,34 +21,34 @@ namespace SnakeGame
                 gameOver.CheckIfBodyHit(x, y, snake);
                 gameOver.CheckIfWallHit(x, y);
 
-                if (keyInfo == ConsoleKey.UpArrow || keyInfo == ConsoleKey.W)
+                if (currentKey == ConsoleKey.UpArrow || currentKey == ConsoleKey.W)
                 {
                     y--;
                     UpdateSnakeRoute(x, y, snake);
                     snake.PrintSnake();
                 }
-                else if (keyInfo == ConsoleKey.RightArrow || keyInfo == ConsoleKey.D)
+                else if (currentKey == ConsoleKey.RightArrow || currentKey == ConsoleKey.D)
                 {
                     x++;
                     UpdateSnakeRoute(x, y, snake);
                     snake.PrintSnake();
                 }
-                else if (keyInfo == ConsoleKey.DownArrow || keyInfo == ConsoleKey.S)
+                else if (currentKey == ConsoleKey.DownArrow || currentKey == ConsoleKey.S)
                 {
                     y++;
                     UpdateSnakeRoute(x, y, snake);
                     snake.PrintSnake();
                 }
-                else if (keyInfo == ConsoleKey.LeftArrow || keyInfo == ConsoleKey.A)
+                else if (currentKey == ConsoleKey.LeftArrow || currentKey == ConsoleKey.A)
                 {
                     x--;
                     UpdateSnakeRoute(x, y, snake);
                     snake.PrintSnake();
                 }
 
-                CheckIfSnakeChangesDirection(ref keyInfo);
+                CheckIfSnakeChangesDirection(ref currentKey, snake);
                 RemovePrintedKey(y);
-                CheckIfFruitIsEaten(x, y, keyInfo, snake, fruit);
+                CheckIfFruitIsEaten(x, y, currentKey, snake, fruit);
             }
         }
         private void UpdateSnakeRoute(int x, int y, Snake snake)
@@ -71,10 +71,10 @@ namespace SnakeGame
         }
         private void SetSnakeTailCoords(Snake snake)
         {
-            snake.SnakeTailX = snake.xRoutes[snake.snakeParts.Count - 1];
-            snake.SnakeTailY = snake.yRoutes[snake.snakeParts.Count - 1];
+            snake.SnakeTailX = snake.xRoutes[snake.xRoutes.Count - 1];
+            snake.SnakeTailY = snake.yRoutes[snake.yRoutes.Count - 1];
         }
-        private void CheckIfSnakeChangesDirection(ref ConsoleKey keyInfo)
+        private void CheckIfSnakeChangesDirection(ref ConsoleKey currentKey, Snake snake)
         {
             DateTime beginWait = DateTime.Now;
             double snakeSpeed = 0.1;
@@ -86,11 +86,11 @@ namespace SnakeGame
 
             if (Console.KeyAvailable)
             {
-                ConsoleKey key = Console.ReadKey().Key;
+                ConsoleKey newKey = Console.ReadKey().Key;
 
-                if (IsValidKey(key))
+                if (IsValidKey(newKey) && IsNotOppositeKey(currentKey, newKey, snake))
                 {
-                    keyInfo = key;
+                    currentKey = newKey;
                 }
             }
         }
@@ -103,6 +103,34 @@ namespace SnakeGame
                 Console.SetCursorPosition(55, 24);
                 Console.WriteLine($"Score: {snake.snakeParts.Count}");
             }
+        }
+        private bool IsNotOppositeKey(ConsoleKey currentKey, ConsoleKey newKey, Snake snake)
+        {
+            if
+            (
+                (snake.snakeParts.Count != 1) &&
+                ((currentKey == ConsoleKey.LeftArrow && newKey == ConsoleKey.RightArrow) ||
+                (currentKey == ConsoleKey.RightArrow && newKey == ConsoleKey.LeftArrow) ||
+                (currentKey == ConsoleKey.UpArrow && newKey == ConsoleKey.DownArrow) ||
+                (currentKey == ConsoleKey.DownArrow && newKey == ConsoleKey.UpArrow) ||
+
+                (currentKey == ConsoleKey.A && newKey == ConsoleKey.D) ||
+                (currentKey == ConsoleKey.D && newKey == ConsoleKey.A) ||
+                (currentKey == ConsoleKey.W && newKey == ConsoleKey.S) ||
+                (currentKey == ConsoleKey.S && newKey == ConsoleKey.W))
+            )
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        private void RemovePrintedKey(int y)
+        {
+            Console.SetCursorPosition(0, y + 1);
+            Console.WriteLine(" ");
         }
         private bool IsValidKey(ConsoleKey key)
         {
@@ -124,11 +152,6 @@ namespace SnakeGame
             {
                 return true;
             }
-        }
-        private void RemovePrintedKey(int y)
-        {
-            Console.SetCursorPosition(0, y + 1);
-            Console.WriteLine(" ");
         }
     }
 }
