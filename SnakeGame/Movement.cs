@@ -109,15 +109,12 @@ namespace SnakeGame
             if
             (
                 (snake.snakeParts.Count != 1) &&
-                ((currentKey == ConsoleKey.LeftArrow && newKey == ConsoleKey.RightArrow) ||
-                (currentKey == ConsoleKey.RightArrow && newKey == ConsoleKey.LeftArrow) ||
-                (currentKey == ConsoleKey.UpArrow && newKey == ConsoleKey.DownArrow) ||
-                (currentKey == ConsoleKey.DownArrow && newKey == ConsoleKey.UpArrow) ||
-
-                (currentKey == ConsoleKey.A && newKey == ConsoleKey.D) ||
-                (currentKey == ConsoleKey.D && newKey == ConsoleKey.A) ||
-                (currentKey == ConsoleKey.W && newKey == ConsoleKey.S) ||
-                (currentKey == ConsoleKey.S && newKey == ConsoleKey.W))
+                (
+                ((currentKey == ConsoleKey.LeftArrow || currentKey == ConsoleKey.A) && (newKey == ConsoleKey.D || newKey == ConsoleKey.RightArrow)) ||
+                ((currentKey == ConsoleKey.RightArrow || currentKey == ConsoleKey.D) && (newKey == ConsoleKey.A || newKey == ConsoleKey.LeftArrow)) ||
+                ((currentKey == ConsoleKey.UpArrow || currentKey == ConsoleKey.W) && (newKey == ConsoleKey.S || newKey == ConsoleKey.DownArrow)) ||
+                ((currentKey == ConsoleKey.DownArrow || currentKey == ConsoleKey.S) && (newKey == ConsoleKey.W || newKey == ConsoleKey.UpArrow))
+                )
             )
             {
                 return false;
@@ -129,8 +126,12 @@ namespace SnakeGame
         }
         private void RemovePrintedKey(int y)
         {
-            Console.SetCursorPosition(0, y + 1);
-            Console.WriteLine(" ");
+            const int VERTICAL_LENGHT = 23;
+            for (int i = 0; i < VERTICAL_LENGHT; i++)
+            {
+                Console.SetCursorPosition(0, i);
+                Console.WriteLine(" ");
+            }
         }
         private bool IsValidKey(ConsoleKey key)
         {

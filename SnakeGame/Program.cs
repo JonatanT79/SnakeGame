@@ -21,10 +21,9 @@ namespace SnakeGame
 }
 
 //BuggFixar / New Functions
-//Fix bugg 'removeprintedkey'
+//Sometimes the snaketail will be negative number and wall is disapearing sometimes (happens when snake is near wall & eating the fruit)
 
-//Fix when currentKey = leftarrow: snake can still go back if user press 'D'
-//Sometimes the snaketail will be negative number and wall is disapearing sometimes (happens when snake is near wall)
+//Simplyfi 'removeprintedkey'
 //Remove "boost" when holding a key
 //Fix so user can choose which direction to begin moving
 //Fixa så att score egentligen ska vara i db
