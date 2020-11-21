@@ -77,7 +77,7 @@ namespace SnakeGame
         private void CheckIfSnakeChangesDirection(ref ConsoleKey currentKey, Snake snake)
         {
             DateTime beginWait = DateTime.Now;
-            double snakeSpeed = 0.1;
+            double snakeSpeed = 3;
 
             while (!Console.KeyAvailable && DateTime.Now.Subtract(beginWait).TotalSeconds < snakeSpeed)
             {

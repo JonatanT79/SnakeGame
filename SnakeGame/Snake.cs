@@ -28,8 +28,11 @@ namespace SnakeGame
         }
         private void RemoveSnakeTail()
         {
-            Console.SetCursorPosition(SnakeTailX, SnakeTailY);
-            Console.WriteLine(" ");
+            if ((SnakeTailY > 0 && SnakeTailY < 23) && (SnakeTailX > 10 && SnakeTailX < 108))
+            {
+                Console.SetCursorPosition(SnakeTailX, SnakeTailY);
+                Console.WriteLine(" ");
+            }
         }
         private void AddRouteForNewSnakeBody(int x, int y, ConsoleKey key)
         {

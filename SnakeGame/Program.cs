@@ -21,7 +21,7 @@ namespace SnakeGame
 }
 
 //BuggFixar / New Functions
-//Sometimes the snaketail will be negative number and wall is disapearing sometimes (happens when snake is near wall & eating the fruit)
+//make fruit not spawn on snake
 
 //Simplyfi 'removeprintedkey'
 //Remove "boost" when holding a key
