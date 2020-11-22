@@ -14,7 +14,7 @@ namespace SnakeGame
             snake.snakeParts.Add("¤");
             snake.xRoutes.Add(x);
             snake.yRoutes.Add(y);
-            fruit.SpawnFruit();
+            fruit.SpawnFruit(snake);
 
             while (true)
             {
@@ -77,7 +77,7 @@ namespace SnakeGame
         private void CheckIfSnakeChangesDirection(ref ConsoleKey currentKey, Snake snake)
         {
             DateTime beginWait = DateTime.Now;
-            double snakeSpeed = 3;
+            double snakeSpeed = 0.1;
 
             while (!Console.KeyAvailable && DateTime.Now.Subtract(beginWait).TotalSeconds < snakeSpeed)
             {
@@ -99,7 +99,7 @@ namespace SnakeGame
             if (x == Fruit.FruitXCoord && y == Fruit.FruitYCoord)
             {
                 snake.ExtendSnake(x, y, key);
-                fruit.SpawnFruit();
+                fruit.SpawnFruit(snake);
                 Console.SetCursorPosition(55, 24);
                 Console.WriteLine($"Score: {snake.snakeParts.Count}");
             }

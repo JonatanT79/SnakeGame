@@ -21,7 +21,6 @@ namespace SnakeGame
 }
 
 //BuggFixar / New Functions
-//make fruit not spawn on snake
 
 //Simplyfi 'removeprintedkey'
 //Remove "boost" when holding a key
