@@ -1,5 +1,8 @@
-﻿using System;
+﻿using SnakeGame.Data;
+using SnakeGame.Models;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace SnakeGame
@@ -24,9 +27,14 @@ namespace SnakeGame
         }
         private void DisplayTop1HighScore()
         {
+            HighScoreContext context = new HighScoreContext();
+            var top1HighScore = context.HighScore
+                .OrderByDescending(s => s.Score)
+                .ToList()[0].Score;
+
             Console.SetCursorPosition(94, 24);
             Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine($"Highscore: {100}");
+            Console.WriteLine($"Top1 Highscore: {top1HighScore}");
         }
     }
 }

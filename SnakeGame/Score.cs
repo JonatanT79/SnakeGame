@@ -22,22 +22,27 @@ namespace SnakeGame
                 .Take(10)
                 .ToList();
 
-            Console.WriteLine($"Name       Score");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.SetCursorPosition(49, 4);
+            Console.WriteLine($"{"Name",-11} Score");
 
+            int row = 5;
             foreach (var item in HighScoreTop10List)
             {
-                Console.WriteLine($"{item.Name}        {item.Score}");
+                Console.SetCursorPosition(49, row);
+                Console.WriteLine($"{item.Name,-11} {item.Score}");
+                row++;
             }
         }
         public void HandleScore(Snake snake)
         {
             HighScoreContext context = new HighScoreContext();
-            int index = context.HighScore.ToList().Count();
-            int lowestHighScoreInTop10 = context.HighScore.ToList()[index - 1].Score;
 
-            Console.SetCursorPosition(46, 14);
+            Console.SetCursorPosition(50, 14);
             int score = snake.snakeParts.Count - 1;
             Console.WriteLine($"Your Score: {score}");
+            int index = context.HighScore.ToList().Count();
+            int lowestHighScoreInTop10 = context.HighScore.ToList()[index - 1].Score;
 
             if (score > lowestHighScoreInTop10)
             {

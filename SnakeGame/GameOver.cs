@@ -49,7 +49,7 @@ namespace SnakeGame
         private void CheckIfUserRestartsGame()
         {
             Start start = new Start();
-            Console.SetCursorPosition(46, 20);
+            Console.SetCursorPosition(47, 20);
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("Play Again? (Yes/No)");
             string input = Console.ReadLine().ToUpper();
