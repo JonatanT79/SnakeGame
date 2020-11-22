@@ -41,8 +41,21 @@ namespace SnakeGame
             Console.SetCursorPosition(50, 14);
             int score = snake.snakeParts.Count - 1;
             Console.WriteLine($"Your Score: {score}");
-            int index = context.HighScore.ToList().Count();
-            int lowestHighScoreInTop10 = context.HighScore.ToList()[index - 1].Score;
+            int highScoreCount = context.HighScore.ToList().Count();
+            int lowestHighScoreInTop10 = 0;
+
+            if (highScoreCount >= 10)
+            {
+                lowestHighScoreInTop10 = context.HighScore
+                .OrderByDescending(s => s.Score)
+                .ToList()[10].Score;
+            }
+            else
+            {
+                lowestHighScoreInTop10 = context.HighScore
+                .OrderByDescending(s => s.Score)
+                .ToList()[highScoreCount - 1].Score;
+            }
 
             if (score > lowestHighScoreInTop10)
             {
