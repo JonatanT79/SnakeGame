@@ -49,8 +49,12 @@ namespace SnakeGame
         }
         public void RemovePrintedKey(int y)
         {
-            Console.SetCursorPosition(0, y + 1);
-            Console.WriteLine(" ");
+            const int VERTICAL_LENGHT = 23;
+            for (int i = 0; i < VERTICAL_LENGHT; i++)
+            {
+                Console.SetCursorPosition(0, i);
+                Console.WriteLine(" ");
+            }
         }
     }
 }

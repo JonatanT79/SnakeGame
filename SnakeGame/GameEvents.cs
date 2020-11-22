@@ -29,12 +29,13 @@ namespace SnakeGame
         }
         public void CheckIfFruitIsEaten(int headX, int headY, ConsoleKey key, Snake snake, Fruit fruit)
         {
+            Start start = new Start();
+
             if (headX == Fruit.FruitXCoord && headY == Fruit.FruitYCoord)
             {
                 snake.ExtendSnake(headX, headY, key);
                 fruit.SpawnFruit(snake);
-                Console.SetCursorPosition(55, 24);
-                Console.WriteLine($"Score: {snake.snakeParts.Count}");
+                start.DisplayCurrentScore(snake.snakeParts.Count - 1);
             }
         }
     }

@@ -10,10 +10,8 @@ namespace SnakeGame
     {
         static void Main(string[] args)
         {
-            Movement movement = new Movement();
-            Map map = new Map();
-            map.CreateMap();
-            movement.MoveSnake();
+            Start start = new Start();
+            start.StartGame();
         }
     }
 }

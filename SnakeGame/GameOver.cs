@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 namespace SnakeGame
 {
@@ -34,12 +35,21 @@ namespace SnakeGame
         }
         private void DisplayGameOver()
         {
-            Console.SetCursorPosition(0, 24);
+            Console.SetCursorPosition(10, 24);
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("Game Over");
+            Console.WriteLine("Game Over!");
             Console.ResetColor();
-            Console.ReadKey();
+            Thread.Sleep(TimeSpan.FromMilliseconds(2000));
+            DisplayTop10HighScore();
             Environment.Exit(0);
+        }
+        private void DisplayTop10HighScore()
+        {
+            Console.Clear();
+            Console.SetCursorPosition(50, 2);
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("Top 10 Highcore");
+            Console.ResetColor();
         }
     }
 }
