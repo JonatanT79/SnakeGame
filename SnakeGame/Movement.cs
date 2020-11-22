@@ -21,7 +21,7 @@ namespace SnakeGame
             while (true)
             {
                 gameOver.CheckIfBodyHit(snake.SnakeHeadX, snake.SnakeHeadY, snake);
-                gameOver.CheckIfWallHit(snake.SnakeHeadX, snake.SnakeHeadY);
+                gameOver.CheckIfWallHit(snake.SnakeHeadX, snake.SnakeHeadY, snake);
 
                 if (currentKey == ConsoleKey.UpArrow || currentKey == ConsoleKey.W)
                 {

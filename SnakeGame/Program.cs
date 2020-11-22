@@ -18,7 +18,4 @@ namespace SnakeGame
 
 //BuggFixar / New Functions
 //Remove "boost" when holding a key
-
-//Fixa så att score egentligen ska vara i db
-//When game is done add: highscore (test without db, then do it with db)
 //Fix so user can choose which direction to begin moving

@@ -8,7 +8,7 @@ using SnakeGame.Data;
 
 namespace SnakeGame.Migrations
 {
-    [DbContext(typeof(HighscoreContext))]
+    [DbContext(typeof(HighScoreContext))]
     partial class HighscoreContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

@@ -6,9 +6,9 @@ using System.Text;
 
 namespace SnakeGame.Data
 {
-    class HighscoreContext : DbContext
+    class HighScoreContext : DbContext
     {
-        DbSet<HighScore> HighScore { get; set; }
+        public DbSet<HighScore> HighScore { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

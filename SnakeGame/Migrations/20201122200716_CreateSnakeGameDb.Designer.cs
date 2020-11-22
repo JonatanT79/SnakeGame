@@ -9,7 +9,7 @@ using SnakeGame.Data;
 
 namespace SnakeGame.Migrations
 {
-    [DbContext(typeof(HighscoreContext))]
+    [DbContext(typeof(HighScoreContext))]
     [Migration("20201122200716_CreateSnakeGameDb")]
     partial class CreateSnakeGameDb
     {

@@ -5,7 +5,7 @@ namespace SnakeGame
 {
     class GameOver
     {
-        public void CheckIfWallHit(int snakeXPosition, int snakeYPosition)
+        public void CheckIfWallHit(int snakeXPosition, int snakeYPosition, Snake snake)
         {
             const int MAP_TOP_MAX = 0, MAP_BOT_MAX = 23, MAP_LEFT_MAX = 10, MAP_RIGHT_MAX = 108;
 
@@ -17,7 +17,7 @@ namespace SnakeGame
                 snakeXPosition == MAP_RIGHT_MAX
             )
             {
-                DisplayGameOver();
+                DisplayGameOver(snake);
             }
         }
         public void CheckIfBodyHit(int headX, int headY, Snake snake)
@@ -29,11 +29,11 @@ namespace SnakeGame
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.SetCursorPosition(headX, headY);
                     Console.WriteLine("¤");
-                    DisplayGameOver();
+                    DisplayGameOver(snake);
                 }
             }
         }
-        private void DisplayGameOver()
+        private void DisplayGameOver(Snake snake)
         {
             Score score = new Score();
             Console.SetCursorPosition(10, 24);
@@ -41,8 +41,9 @@ namespace SnakeGame
             Console.WriteLine("Game Over!");
             Console.ResetColor();
             Thread.Sleep(TimeSpan.FromMilliseconds(2000));
+
             score.DisplayTop10HighScore();
-            score.HandleScore();
+            score.HandleScore(snake);
             CheckIfUserRestartsGame();
         }
         private void CheckIfUserRestartsGame()
