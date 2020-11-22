@@ -6,12 +6,20 @@ namespace SnakeGame
 {
     class Snake
     {
+        public int SnakeHeadX { get; set; }
+        public int SnakeHeadY { get; set; }
         public int SnakeTailX { get; set; }
         public int SnakeTailY { get; set; }
 
         public List<string> snakeParts = new List<string>();
         public List<int> xRoutes = new List<int>();
         public List<int> yRoutes = new List<int>();
+
+        public Snake()
+        {
+            SnakeHeadX = 54;
+            SnakeHeadY = 12;
+        }
 
         public void PrintSnake()
         {

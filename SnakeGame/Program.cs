@@ -12,19 +12,16 @@ namespace SnakeGame
         {
             Movement movement = new Movement();
             Map map = new Map();
-
             map.CreateMap();
-            const int X_STARTPOSITION = 54, Y_STARTPOSITION = 12;
-            movement.MoveSnake(X_STARTPOSITION, Y_STARTPOSITION);
+            movement.MoveSnake();
         }
     }
 }
 
 //BuggFixar / New Functions
-
-//Simplyfi 'removeprintedkey'
 //Remove "boost" when holding a key
-//Fix so user can choose which direction to begin moving
+
 //Fixa så att score egentligen ska vara i db
 //When game is done add: highscore (test without db, then do it with db)
+//Fix so user can choose which direction to begin moving
 //Add restart function

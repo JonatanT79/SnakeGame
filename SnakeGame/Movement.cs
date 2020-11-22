@@ -4,7 +4,7 @@ namespace SnakeGame
 {
     class Movement
     {
-        public void MoveSnake(int x, int y)
+        public void MoveSnake()
         {
             Snake snake = new Snake();
             Fruit fruit = new Fruit();
@@ -12,46 +12,46 @@ namespace SnakeGame
 
             ConsoleKey currentKey = ConsoleKey.RightArrow;
             snake.snakeParts.Add("¤");
-            snake.xRoutes.Add(x);
-            snake.yRoutes.Add(y);
+            snake.xRoutes.Add(snake.SnakeHeadX);
+            snake.yRoutes.Add(snake.SnakeHeadY);
             fruit.SpawnFruit(snake);
 
             while (true)
             {
-                gameOver.CheckIfBodyHit(x, y, snake);
-                gameOver.CheckIfWallHit(x, y);
+                gameOver.CheckIfBodyHit(snake.SnakeHeadX, snake.SnakeHeadY, snake);
+                gameOver.CheckIfWallHit(snake.SnakeHeadX, snake.SnakeHeadY);
 
                 if (currentKey == ConsoleKey.UpArrow || currentKey == ConsoleKey.W)
                 {
-                    y--;
-                    UpdateSnakeRoute(x, y, snake);
+                    snake.SnakeHeadY--;
+                    UpdateSnakeRoute(snake.SnakeHeadX, snake.SnakeHeadY, snake);
                     snake.PrintSnake();
                 }
                 else if (currentKey == ConsoleKey.RightArrow || currentKey == ConsoleKey.D)
                 {
-                    x++;
-                    UpdateSnakeRoute(x, y, snake);
+                    snake.SnakeHeadX++;
+                    UpdateSnakeRoute(snake.SnakeHeadX, snake.SnakeHeadY, snake);
                     snake.PrintSnake();
                 }
                 else if (currentKey == ConsoleKey.DownArrow || currentKey == ConsoleKey.S)
                 {
-                    y++;
-                    UpdateSnakeRoute(x, y, snake);
+                    snake.SnakeHeadY++;
+                    UpdateSnakeRoute(snake.SnakeHeadX, snake.SnakeHeadY, snake);
                     snake.PrintSnake();
                 }
                 else if (currentKey == ConsoleKey.LeftArrow || currentKey == ConsoleKey.A)
                 {
-                    x--;
-                    UpdateSnakeRoute(x, y, snake);
+                    snake.SnakeHeadX--;
+                    UpdateSnakeRoute(snake.SnakeHeadX, snake.SnakeHeadY, snake);
                     snake.PrintSnake();
                 }
 
                 CheckIfSnakeChangesDirection(ref currentKey, snake);
-                RemovePrintedKey(y);
-                CheckIfFruitIsEaten(x, y, currentKey, snake, fruit);
+                RemovePrintedKey(snake.SnakeHeadY);
+                CheckIfFruitIsEaten(snake.SnakeHeadX, snake.SnakeHeadY, currentKey, snake, fruit);
             }
         }
-        private void UpdateSnakeRoute(int x, int y, Snake snake)
+        private void UpdateSnakeRoute(int headX, int headY, Snake snake)
         {
             SetSnakeTailCoords(snake);
 
@@ -64,8 +64,8 @@ namespace SnakeGame
                 }
                 else
                 {
-                    snake.xRoutes[0] = x;
-                    snake.yRoutes[0] = y;
+                    snake.xRoutes[0] = headX;
+                    snake.yRoutes[0] = headY;
                 }
             }
         }
@@ -94,11 +94,11 @@ namespace SnakeGame
                 }
             }
         }
-        private void CheckIfFruitIsEaten(int x, int y, ConsoleKey key, Snake snake, Fruit fruit)
+        private void CheckIfFruitIsEaten(int headX, int headY, ConsoleKey key, Snake snake, Fruit fruit)
         {
-            if (x == Fruit.FruitXCoord && y == Fruit.FruitYCoord)
+            if (headX == Fruit.FruitXCoord && headY == Fruit.FruitYCoord)
             {
-                snake.ExtendSnake(x, y, key);
+                snake.ExtendSnake(headX, headY, key);
                 fruit.SpawnFruit(snake);
                 Console.SetCursorPosition(55, 24);
                 Console.WriteLine($"Score: {snake.snakeParts.Count}");
@@ -126,12 +126,8 @@ namespace SnakeGame
         }
         private void RemovePrintedKey(int y)
         {
-            const int VERTICAL_LENGHT = 23;
-            for (int i = 0; i < VERTICAL_LENGHT; i++)
-            {
-                Console.SetCursorPosition(0, i);
-                Console.WriteLine(" ");
-            }
+            Console.SetCursorPosition(0, y + 1);
+            Console.WriteLine(" ");
         }
         private bool IsValidKey(ConsoleKey key)
         {
