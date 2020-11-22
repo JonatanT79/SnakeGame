@@ -20,14 +20,14 @@ namespace SnakeGame
                 DisplayGameOver();
             }
         }
-        public void CheckIfBodyHit(int x, int y, Snake snake)
+        public void CheckIfBodyHit(int headX, int headY, Snake snake)
         {
             for (int i = 1; i < snake.xRoutes.Count; i++)
             {
-                if (x == snake.xRoutes[i] && y == snake.yRoutes[i])
+                if (headX == snake.xRoutes[i] && headY == snake.yRoutes[i])
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.SetCursorPosition(x, y);
+                    Console.SetCursorPosition(headX, headY);
                     Console.WriteLine("¤");
                     DisplayGameOver();
                 }
@@ -35,21 +35,41 @@ namespace SnakeGame
         }
         private void DisplayGameOver()
         {
+            Score score = new Score();
             Console.SetCursorPosition(10, 24);
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("Game Over!");
             Console.ResetColor();
             Thread.Sleep(TimeSpan.FromMilliseconds(2000));
-            DisplayTop10HighScore();
-            Environment.Exit(0);
+            score.DisplayTop10HighScore();
+            score.HandleScore();
+            CheckIfUserRestartsGame();
         }
-        private void DisplayTop10HighScore()
+        private void CheckIfUserRestartsGame()
         {
-            Console.Clear();
-            Console.SetCursorPosition(50, 2);
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine("Top 10 Highcore");
+            Start start = new Start();
+            Console.SetCursorPosition(46, 20);
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("Play Again? (Yes/No)");
+            string input = Console.ReadLine().ToUpper();
+
+            while (input != "YES" && input != "NO")
+            {
+                Console.WriteLine("You must enter either Yes or No");
+                input = Console.ReadLine().ToUpper();
+            }
+
             Console.ResetColor();
+
+            if (input == "YES")
+            {
+                Console.Clear();
+                start.StartGame();
+            }
+            else if (input == "NO")
+            {
+                Environment.Exit(0);
+            }
         }
     }
 }
