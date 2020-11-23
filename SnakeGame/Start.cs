@@ -21,7 +21,7 @@ namespace SnakeGame
         }
         public void DisplayCurrentScore(int snakeLenght)
         {
-            Console.SetCursorPosition(54, 24);
+            Console.SetCursorPosition(51, 24);
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"Score: {snakeLenght}");
         }
@@ -30,11 +30,12 @@ namespace SnakeGame
             HighScoreContext context = new HighScoreContext();
             var top1HighScore = context.HighScore
                 .OrderByDescending(s => s.Score)
-                .ToList()[0].Score;
+                .ThenByDescending(d => d.Date)
+                .ToList()[0];
 
-            Console.SetCursorPosition(94, 24);
+            Console.SetCursorPosition(82, 24);
             Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine($"Top1 Highscore: {top1HighScore}");
+            Console.WriteLine($"#1 Name: {top1HighScore.Name}, Score: {top1HighScore.Score}");
         }
     }
 }

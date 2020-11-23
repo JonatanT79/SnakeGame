@@ -18,4 +18,3 @@ namespace SnakeGame
 
 //BuggFixar / New Functions
 //Remove "boost" when holding a key
-//Fix so user can choose which direction to begin moving

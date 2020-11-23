@@ -36,11 +36,11 @@ namespace SnakeGame
         private void DisplayGameOver(Snake snake)
         {
             Score score = new Score();
-            Console.SetCursorPosition(10, 24);
+            Console.SetCursorPosition(11, 24);
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("Game Over!");
             Console.ResetColor();
-            Thread.Sleep(TimeSpan.FromMilliseconds(2000));
+            Thread.Sleep(TimeSpan.FromMilliseconds(1500));
 
             score.DisplayTop10HighScore();
             score.HandleScore(snake);
@@ -49,7 +49,7 @@ namespace SnakeGame
         private void CheckIfUserRestartsGame()
         {
             Start start = new Start();
-            Console.SetCursorPosition(47, 20);
+            Console.SetCursorPosition(46, 19);
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("Play Again? (Yes/No)");
             string input = Console.ReadLine().ToUpper();
