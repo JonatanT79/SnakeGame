@@ -6,7 +6,7 @@ namespace SnakeGame
 {
     class Validation
     {
-        public bool IsNotOppositeKey(ConsoleKey currentKey, ConsoleKey newKey, Snake snake)
+        public bool IsNotOppositeKey(Snake snake, ConsoleKey currentKey, ConsoleKey newKey)
         {
             if
             (

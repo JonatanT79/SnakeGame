@@ -6,7 +6,18 @@ namespace SnakeGame
 {
     class GameEvents
     {
-        public void CheckIfSnakeChangesDirection(ref ConsoleKey currentKey, Snake snake)
+        public void ExecuteGameEvents(Snake snake, Fruit fruit, ref ConsoleKey currentKey)
+        {
+            GameOver gameOver = new GameOver();
+            Validation validation = new Validation();
+
+            gameOver.CheckIfBodyHit(snake);
+            gameOver.CheckIfWallHit(snake);
+            CheckIfSnakeChangesDirection(snake, ref currentKey);
+            CheckIfFruitIsEaten(snake, fruit);
+            validation.RemovePrintedKey(snake.SnakeHeadY);
+        }
+        private void CheckIfSnakeChangesDirection(Snake snake, ref ConsoleKey currentKey)
         {
             Validation validation = new Validation();
             DateTime beginWait = DateTime.Now;
@@ -21,19 +32,19 @@ namespace SnakeGame
             {
                 ConsoleKey newKey = Console.ReadKey().Key;
 
-                if (validation.IsValidKey(newKey) && validation.IsNotOppositeKey(currentKey, newKey, snake))
+                if (validation.IsValidKey(newKey) && validation.IsNotOppositeKey(snake, currentKey, newKey))
                 {
                     currentKey = newKey;
                 }
             }
         }
-        public void CheckIfFruitIsEaten(int headX, int headY, ConsoleKey key, Snake snake, Fruit fruit)
+        private void CheckIfFruitIsEaten(Snake snake, Fruit fruit)
         {
             Start start = new Start();
 
-            if (headX == Fruit.FruitXCoord && headY == Fruit.FruitYCoord)
+            if (snake.SnakeHeadX == Fruit.FruitXCoord && snake.SnakeHeadY == Fruit.FruitYCoord)
             {
-                snake.ExtendSnake(headX, headY, key);
+                snake.ExtendSnake();
                 fruit.SpawnFruit(snake);
                 start.DisplayCurrentScore(snake.snakeParts.Count - 1);
             }

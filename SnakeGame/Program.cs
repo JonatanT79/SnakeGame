@@ -17,4 +17,6 @@ namespace SnakeGame
 }
 
 //BuggFixar / New Functions
+//Clean code / Refactor
+//Max 3 argument, en metod ska vara kort, regel 2 ännu kortare om det går
 //Remove "boost" when holding a key

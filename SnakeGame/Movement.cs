@@ -4,56 +4,42 @@ namespace SnakeGame
 {
     class Movement
     {
-        public void MoveSnake()
+        public void MoveSnake(Snake snake, Fruit fruit)
         {
-            Snake snake = new Snake();
-            Fruit fruit = new Fruit();
             GameEvents gameEvents = new GameEvents();
-            GameOver gameOver = new GameOver();
-            Validation validation = new Validation();
-
             ConsoleKey currentKey = ConsoleKey.RightArrow;
-            snake.snakeParts.Add("¤");
-            snake.xRoutes.Add(snake.SnakeHeadX);
-            snake.yRoutes.Add(snake.SnakeHeadY);
-            fruit.SpawnFruit(snake);
 
             while (true)
             {
-                gameOver.CheckIfBodyHit(snake.SnakeHeadX, snake.SnakeHeadY, snake);
-                gameOver.CheckIfWallHit(snake.SnakeHeadX, snake.SnakeHeadY, snake);
-
                 if (currentKey == ConsoleKey.UpArrow || currentKey == ConsoleKey.W)
                 {
                     snake.SnakeHeadY--;
-                    UpdateSnakeRoute(snake.SnakeHeadX, snake.SnakeHeadY, snake);
+                    UpdateSnakeRoute(snake);
                     snake.PrintSnake();
                 }
                 else if (currentKey == ConsoleKey.RightArrow || currentKey == ConsoleKey.D)
                 {
                     snake.SnakeHeadX++;
-                    UpdateSnakeRoute(snake.SnakeHeadX, snake.SnakeHeadY, snake);
+                    UpdateSnakeRoute(snake);
                     snake.PrintSnake();
                 }
                 else if (currentKey == ConsoleKey.DownArrow || currentKey == ConsoleKey.S)
                 {
                     snake.SnakeHeadY++;
-                    UpdateSnakeRoute(snake.SnakeHeadX, snake.SnakeHeadY, snake);
+                    UpdateSnakeRoute(snake);
                     snake.PrintSnake();
                 }
                 else if (currentKey == ConsoleKey.LeftArrow || currentKey == ConsoleKey.A)
                 {
                     snake.SnakeHeadX--;
-                    UpdateSnakeRoute(snake.SnakeHeadX, snake.SnakeHeadY, snake);
+                    UpdateSnakeRoute(snake);
                     snake.PrintSnake();
                 }
 
-                gameEvents.CheckIfSnakeChangesDirection(ref currentKey, snake);
-                validation.RemovePrintedKey(snake.SnakeHeadY);
-                gameEvents.CheckIfFruitIsEaten(snake.SnakeHeadX, snake.SnakeHeadY, currentKey, snake, fruit);
+                gameEvents.ExecuteGameEvents(snake, fruit, ref currentKey);
             }
         }
-        private void UpdateSnakeRoute(int headX, int headY, Snake snake)
+        private void UpdateSnakeRoute(Snake snake)
         {
             SetSnakeTailCoords(snake);
 
@@ -66,8 +52,8 @@ namespace SnakeGame
                 }
                 else
                 {
-                    snake.xRoutes[0] = headX;
-                    snake.yRoutes[0] = headY;
+                    snake.xRoutes[0] = snake.SnakeHeadX;
+                    snake.yRoutes[0] = snake.SnakeHeadY;
                 }
             }
         }

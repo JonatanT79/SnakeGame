@@ -13,11 +13,14 @@ namespace SnakeGame
         {
             Movement movement = new Movement();
             Map map = new Map();
+            Snake snake = new Snake();
+            Fruit fruit = new Fruit();
+
             map.CreateMap();
             DisplayCurrentScore(0);
             DisplayTop1HighScore();
-            Console.ResetColor();
-            movement.MoveSnake();
+            PrepareGameBeforeMovement(snake, fruit);
+            movement.MoveSnake(snake, fruit);
         }
         public void DisplayCurrentScore(int snakeLenght)
         {
@@ -36,6 +39,13 @@ namespace SnakeGame
             Console.SetCursorPosition(82, 24);
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine($"#1 Name: {top1HighScore.Name}, Score: {top1HighScore.Score}");
+        }
+        private void PrepareGameBeforeMovement(Snake snake, Fruit fruit)
+        {
+            snake.snakeParts.Add("¤");
+            snake.xRoutes.Add(snake.SnakeHeadX);
+            snake.yRoutes.Add(snake.SnakeHeadY);
+            fruit.SpawnFruit(snake);
         }
     }
 }

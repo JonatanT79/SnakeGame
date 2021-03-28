@@ -5,29 +5,29 @@ namespace SnakeGame
 {
     class GameOver
     {
-        public void CheckIfWallHit(int snakeXPosition, int snakeYPosition, Snake snake)
+        public void CheckIfWallHit(Snake snake)
         {
             const int MAP_TOP_MAX = 0, MAP_BOT_MAX = 23, MAP_LEFT_MAX = 10, MAP_RIGHT_MAX = 108;
 
             if
             (
-                snakeYPosition == MAP_TOP_MAX ||
-                snakeYPosition == MAP_BOT_MAX ||
-                snakeXPosition == MAP_LEFT_MAX ||
-                snakeXPosition == MAP_RIGHT_MAX
+                snake.SnakeHeadY == MAP_TOP_MAX ||
+                snake.SnakeHeadY == MAP_BOT_MAX ||
+                snake.SnakeHeadX == MAP_LEFT_MAX ||
+                snake.SnakeHeadX == MAP_RIGHT_MAX
             )
             {
                 DisplayGameOver(snake);
             }
         }
-        public void CheckIfBodyHit(int headX, int headY, Snake snake)
+        public void CheckIfBodyHit(Snake snake)
         {
             for (int i = 1; i < snake.xRoutes.Count; i++)
             {
-                if (headX == snake.xRoutes[i] && headY == snake.yRoutes[i])
+                if (snake.SnakeHeadX == snake.xRoutes[i] && snake.SnakeHeadY == snake.yRoutes[i])
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.SetCursorPosition(headX, headY);
+                    Console.SetCursorPosition(snake.SnakeHeadX, snake.SnakeHeadY);
                     Console.WriteLine("¤");
                     DisplayGameOver(snake);
                 }

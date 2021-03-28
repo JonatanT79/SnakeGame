@@ -31,7 +31,7 @@ namespace SnakeGame
                 Console.SetCursorPosition(xRoutes[i], yRoutes[i]);
                 Console.WriteLine(snakeParts[i]);
             }
-
+            Console.SetCursorPosition(0, 0);
             Console.ResetColor();
         }
         private void RemoveSnakeTail()
@@ -42,33 +42,11 @@ namespace SnakeGame
                 Console.WriteLine(" ");
             }
         }
-        private void AddRouteForNewSnakeBody(int x, int y, ConsoleKey key)
-        {
-            if (key == ConsoleKey.UpArrow || key == ConsoleKey.W)
-            {
-                xRoutes.Add(x);
-                yRoutes.Add(y + yRoutes.Count);
-            }
-            else if (key == ConsoleKey.RightArrow || key == ConsoleKey.D)
-            {
-                xRoutes.Add(x - xRoutes.Count);
-                yRoutes.Add(y);
-            }
-            else if (key == ConsoleKey.DownArrow || key == ConsoleKey.S)
-            {
-                xRoutes.Add(x);
-                yRoutes.Add(y - yRoutes.Count);
-            }
-            else if (key == ConsoleKey.LeftArrow || key == ConsoleKey.A)
-            {
-                xRoutes.Add(x + xRoutes.Count);
-                yRoutes.Add(y);
-            }
-        }
-        public void ExtendSnake(int x, int y, ConsoleKey key)
+        public void ExtendSnake()
         {
             snakeParts.Add("o");
-            AddRouteForNewSnakeBody(x, y, key);
+            xRoutes.Add(0);
+            yRoutes.Add(0);
         }
     }
 }
